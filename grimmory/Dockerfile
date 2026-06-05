@@ -1,4 +1,4 @@
-FROM ghcr.io/grimmory-tools/grimmory:v0.38.2 AS grimmory-source
+FROM ghcr.io/grimmory-tools/grimmory:v3.2.0 AS grimmory-source
 FROM eclipse-temurin:25-jre-alpine AS java-runtime
 
 FROM ghcr.io/hassio-addons/base:14.3.1

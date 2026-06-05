@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Fixed the upstream Grimmory container source tag in the add-on Docker build.
+
 ## 0.1.0
 
 - Rebuilt the repository as a Home Assistant-native Grimmory host.
