@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+- Disabled Home Assistant ingress mode (blank page due to upstream UI base-path behavior) and exposed Grimmory directly on port `6060` for browser access, Cloudflare Tunnel, and Kobo connectivity.
+
 ## 0.1.3
 
 - Added upstream MariaDB JDBC URL parameters in startup (`createDatabaseIfNotExist=true` plus timezone/session settings) so manual database creation is no longer required.

@@ -1,5 +1,5 @@
 name: Grimmory
-version: "0.1.3"
+version: "0.1.4"
 slug: grimmory
 description: Host Grimmory with a /media bookdrop and MariaDB backend.
 url: https://github.com/aritmeester/hass-grimory-addon
@@ -17,8 +17,11 @@ map:
     read_only: false
   - type: share
     read_only: false
-ingress: true
-ingress_port: 6060
+ingress: false
+ports:
+  6060/tcp: 6060
+ports_description:
+  6060/tcp: Grimmory Web UI (direct HTTP)
 webui: http://[HOST]:[PORT:6060]
 watchdog: http://[HOST]:[PORT:6060]/api/v1/healthcheck
 options:
