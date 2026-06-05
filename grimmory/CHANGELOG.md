@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Added upstream MariaDB JDBC URL parameters in startup (`createDatabaseIfNotExist=true` plus timezone/session settings) so manual database creation is no longer required.
+
 ## 0.1.2
 
 - Fixed startup permissions by mapping `/app/data` to the writable Home Assistant data volume (`/data`).

@@ -69,6 +69,7 @@ MYSQL_PASSWORD=$(get_mysql_service_value "$MYSQL_SERVICE_INFO" password)
 MYSQL_DATABASE=$(get_mysql_service_value "$MYSQL_SERVICE_INFO" database)
 
 MYSQL_DATABASE=${MYSQL_DATABASE:-grimmory}
+MYSQL_URL_PARAMS='createDatabaseIfNotExist=true&connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true'
 
 export USER_ID GROUP_ID TZ APP_USER APP_VERSION APP_REVISION BOOKLORE_PORT
 export DISK_TYPE API_DOCS_ENABLED
@@ -76,7 +77,7 @@ export JAVA_HOME=/opt/java/openjdk
 export PATH=/opt/java/openjdk/bin:${PATH}
 
 if [ -n "$MYSQL_HOST" ] && [ -n "$MYSQL_PORT" ] && [ -n "$MYSQL_USER" ] && [ -n "$MYSQL_PASSWORD" ]; then
-    export DATABASE_URL="jdbc:mariadb://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
+    export DATABASE_URL="jdbc:mariadb://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?${MYSQL_URL_PARAMS}"
     export DATABASE_USERNAME="$MYSQL_USER"
     export DATABASE_PASSWORD="$MYSQL_PASSWORD"
     rm -f "$NEEDS_DB_RESTART_FILE" "$DB_RESTART_TRIGGERED_FILE"
