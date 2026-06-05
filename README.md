@@ -14,7 +14,7 @@ work after the repository is published.
 ## Included add-ons
 
 - `grimmory`: Hosts Grimmory, runs a `dbcheck` S6 service, launches the main
-  Grimmory service, mounts a `/media` bookdrop, mounts a books folder from
+  Grimmory service, mounts a `/share` bookdrop, mounts a books folder from
   `/share`, and connects to the MariaDB add-on through Home Assistant.
 
 ## Local design choices
@@ -22,7 +22,7 @@ work after the repository is published.
 - The image base is `ghcr.io/hassio-addons/base`.
 - The runtime uses S6 services under `etc/services.d`.
 - The upstream Grimmory jar is copied into the final image.
-- User-supplied bookdrop files live in `/media`; the library folder is mounted
+- User-supplied bookdrop files live in `/share`; the library folder is mounted
   from `/share`; persistent runtime state lives in `/data`.
 
 ## Next milestones

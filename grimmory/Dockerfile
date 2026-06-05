@@ -20,5 +20,5 @@ RUN chmod a+x /usr/local/bin/grimmory-run.sh \
 
 LABEL \
 	org.opencontainers.image.title="Home Assistant Add-on: Grimmory" \
-	org.opencontainers.image.description="Hosts Grimmory inside Home Assistant with a /media bookdrop, S6 services, and a MariaDB backend." \
+	org.opencontainers.image.description="Hosts Grimmory inside Home Assistant with a /share bookdrop, S6 services, and a MariaDB backend." \
 	org.opencontainers.image.source="https://github.com/aritmeester/hass-grimory-addon"

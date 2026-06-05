@@ -30,7 +30,6 @@ profile grimmory flags=(attach_disconnected,mediate_deleted) {
   /app/** r,
   /bookdrop/** rwk,
   /books/** rwk,
-  /media/** rwk,
   /share/** rwk,
 
   # Grimmory runtime and Java

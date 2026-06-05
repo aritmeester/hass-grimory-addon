@@ -1,7 +1,7 @@
 name: Grimmory
-version: "0.1.4"
+version: "0.1.5"
 slug: grimmory
-description: Host Grimmory with a /media bookdrop and MariaDB backend.
+description: Host Grimmory with a /share bookdrop and MariaDB backend.
 url: https://github.com/aritmeester/hass-grimory-addon
 arch:
   - aarch64
@@ -13,8 +13,6 @@ stage: experimental
 services:
   - mysql:want
 map:
-  - type: media
-    read_only: false
   - type: share
     read_only: false
 ingress: false

@@ -1,7 +1,7 @@
 configuration:
   bookdrop_folder:
     name: Bookdrop folder
-    description: Relative path under /media that Grimmory uses for automatic imports.
+    description: Relative path under /share that Grimmory uses for automatic imports.
   books_folder:
     name: Books folder
     description: Relative path under /share that Grimmory uses as its library storage root.

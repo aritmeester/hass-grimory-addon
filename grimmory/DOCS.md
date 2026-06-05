@@ -15,9 +15,9 @@ The add-on adapts Grimmory to Home Assistant conventions:
     `DATABASE_URL`, `DATABASE_USERNAME`, and `DATABASE_PASSWORD` variables.
 - The wrapper passes selected Grimmory-native options such as `TZ`,
     `DISK_TYPE`, and `API_DOCS_ENABLED`.
-- It mounts the bookdrop into `/media/grimmory/bookdrop`.
+- It mounts the bookdrop into `/share/grimmory/bookdrop`.
 - It mounts Grimmory's books folder into `/share/grimmory/books`.
-- It exposes Grimmory via Home Assistant ingress on port 6060.
+- It exposes Grimmory directly on port 6060.
 - It declares a watchdog URL that points to Grimmory's health endpoint.
 
 This makes the add-on a real Grimmory host instead of a placeholder wrapper.
@@ -26,20 +26,19 @@ This makes the add-on a real Grimmory host instead of a placeholder wrapper.
 
 - Home Assistant with Supervisor.
 - The MariaDB add-on installed and running.
-- A writable `media` mount for the bookdrop.
 - A writable `share` mount for the library folder.
 
 ## Configuration
 
 ### Option: `bookdrop_folder`
 
-Relative path under `/media` that Grimmory uses as its bookdrop.
+Relative path under `/share` that Grimmory uses as its bookdrop.
 
 Default: `grimmory/bookdrop`
 
 Resulting container path:
 
-`/media/grimmory/bookdrop`
+`/share/grimmory/bookdrop`
 
 ### Option: `books_folder`
 
@@ -101,7 +100,7 @@ the database configuration, and exposing the UI.
 
 ## Storage model
 
-- `/media/grimmory/bookdrop` is the auto-import bookdrop.
+- `/share/grimmory/bookdrop` is the auto-import bookdrop.
 - `/share/grimmory/books` is the main library storage path.
 - `/data` is persistent application state.
 
@@ -111,7 +110,7 @@ The add-on uses Grimmory's health endpoint for watchdog monitoring:
 
 `/api/v1/healthcheck`
 
-The web UI is exposed through Home Assistant ingress on internal port 6060.
+The web UI is exposed over direct HTTP on port 6060.
 
 ## Runtime layout
 

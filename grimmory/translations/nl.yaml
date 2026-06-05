@@ -1,7 +1,7 @@
 configuration:
   bookdrop_folder:
     name: Bookdrop-map
-    description: Relatief pad onder /media dat Grimmory gebruikt voor automatische import.
+    description: Relatief pad onder /share dat Grimmory gebruikt voor automatische import.
   books_folder:
     name: Boekenmap
     description: Relatief pad onder /share dat Grimmory gebruikt als hoofdmap voor de bibliotheek.

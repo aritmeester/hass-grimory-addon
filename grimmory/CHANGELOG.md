@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+- Removed `/media` bookdrop support and switched the bookdrop root to `/share`.
+- Hardened startup permissions for `/share` bookdrop and books paths to avoid `/books/...` read errors during import and upload flows.
+
 ## 0.1.4
 
 - Disabled Home Assistant ingress mode (blank page due to upstream UI base-path behavior) and exposed Grimmory directly on port `6060` for browser access, Cloudflare Tunnel, and Kobo connectivity.

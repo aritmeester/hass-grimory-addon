@@ -27,11 +27,11 @@ BOOKS_FOLDER=$(json_value '.books_folder' || true)
 BOOKDROP_FOLDER=${BOOKDROP_FOLDER:-$DEFAULT_BOOKDROP_FOLDER}
 BOOKS_FOLDER=${BOOKS_FOLDER:-$DEFAULT_BOOKS_FOLDER}
 
-validate_relative_path "$BOOKDROP_FOLDER" "bookdrop_folder" "/media"
+validate_relative_path "$BOOKDROP_FOLDER" "bookdrop_folder" "/share"
 validate_relative_path "$BOOKS_FOLDER" "books_folder" "/share"
 
 mkdir -p /data /app /run/grimmory
-mkdir -p "/media/$BOOKDROP_FOLDER"
+mkdir -p "/share/$BOOKDROP_FOLDER"
 mkdir -p "/share/$BOOKS_FOLDER"
 
 # Ensure Grimmory's default app data path is writable by redirecting it to /data.
@@ -39,8 +39,8 @@ rm -rf /app/data
 ln -s /data /app/data
 
 rm -rf /bookdrop /books
-ln -s "/media/$BOOKDROP_FOLDER" /bookdrop
+ln -s "/share/$BOOKDROP_FOLDER" /bookdrop
 ln -s "/share/$BOOKS_FOLDER" /books
 
-bashio::log.info "Prepared Grimmory bookdrop at /media/${BOOKDROP_FOLDER}"
+bashio::log.info "Prepared Grimmory bookdrop at /share/${BOOKDROP_FOLDER}"
 bashio::log.info "Prepared Grimmory books folder at /share/${BOOKS_FOLDER}"
