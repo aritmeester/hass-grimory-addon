@@ -1,0 +1,41 @@
+#include <tunables/global>
+
+profile grimmory flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  capability,
+  file,
+  network,
+  signal (send) set=(kill,term,int,hup,cont),
+
+  # S6-Overlay
+  /init ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /usr/local/bin/** ix,
+  /run/{s6,s6-rc*,service}/** ix,
+  /package/** ix,
+  /command/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /run/{,**} rwk,
+  /dev/tty rw,
+
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rwk,
+
+  # Add-on state and mounted content
+  /data/** rwk,
+  /app/** r,
+  /bookdrop/** rwk,
+  /books/** rwk,
+  /media/** rwk,
+  /share/** rwk,
+
+  # Grimmory runtime and Java
+  /opt/java/openjdk/** rix,
+  /usr/local/bin/grimmory-run.sh rix,
+  /usr/local/bin/ffprobe rix,
+  /usr/local/bin/kepubify rix,
+}

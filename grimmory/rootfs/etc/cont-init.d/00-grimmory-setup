@@ -1,0 +1,42 @@
+#!/usr/bin/with-contenv bashio
+set -euo pipefail
+
+OPTIONS_PATH=/data/options.json
+DEFAULT_BOOKDROP_FOLDER=grimmory/bookdrop
+DEFAULT_BOOKS_FOLDER=grimmory/books
+
+json_value() {
+    jq -r "$1 // empty" "$OPTIONS_PATH"
+}
+
+validate_relative_path() {
+    local path_value=$1
+    local label=$2
+    local root=$3
+
+    case "$path_value" in
+        /*|*..*)
+            bashio::exit.nok "${label} must be relative to ${root}."
+            ;;
+    esac
+}
+
+BOOKDROP_FOLDER=$(json_value '.bookdrop_folder' || true)
+BOOKS_FOLDER=$(json_value '.books_folder' || true)
+
+BOOKDROP_FOLDER=${BOOKDROP_FOLDER:-$DEFAULT_BOOKDROP_FOLDER}
+BOOKS_FOLDER=${BOOKS_FOLDER:-$DEFAULT_BOOKS_FOLDER}
+
+validate_relative_path "$BOOKDROP_FOLDER" "bookdrop_folder" "/media"
+validate_relative_path "$BOOKS_FOLDER" "books_folder" "/share"
+
+mkdir -p /data /app /run/grimmory
+mkdir -p "/media/$BOOKDROP_FOLDER"
+mkdir -p "/share/$BOOKS_FOLDER"
+
+rm -rf /bookdrop /books
+ln -s "/media/$BOOKDROP_FOLDER" /bookdrop
+ln -s "/share/$BOOKS_FOLDER" /books
+
+bashio::log.info "Prepared Grimmory bookdrop at /media/${BOOKDROP_FOLDER}"
+bashio::log.info "Prepared Grimmory books folder at /share/${BOOKS_FOLDER}"

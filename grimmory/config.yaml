@@ -1,0 +1,35 @@
+name: Grimmory
+version: "0.1.0"
+slug: grimmory
+description: Host Grimmory with a /media bookdrop and MariaDB backend.
+url: https://github.com/aritmeester/hass-grimory-addon
+arch:
+  - aarch64
+  - amd64
+startup: application
+boot: auto
+init: false
+stage: experimental
+services:
+  - mysql:want
+map:
+  - type: media
+    read_only: false
+  - type: share
+    read_only: false
+ingress: true
+ingress_port: 6060
+webui: http://[HOST]:[PORT:6060]
+watchdog: http://[HOST]:[PORT:6060]/api/v1/healthcheck
+options:
+  bookdrop_folder: grimmory/bookdrop
+  books_folder: grimmory/books
+  timezone: Etc/UTC
+  disk_type: LOCAL
+  api_docs_enabled: false
+schema:
+  bookdrop_folder: match(^(?!/)[A-Za-z0-9._/-]+$)
+  books_folder: match(^(?!/)[A-Za-z0-9._/-]+$)
+  timezone: str
+  disk_type: list(LOCAL|NETWORK)
+  api_docs_enabled: bool

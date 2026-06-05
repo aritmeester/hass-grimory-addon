@@ -1,0 +1,74 @@
+#!/usr/bin/with-contenv bashio
+set -euo pipefail
+
+get_mysql_service_value() {
+    local field=${1}
+    local response
+
+    response=$(curl -sSL -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" http://supervisor/services/mysql 2>/dev/null || true)
+    printf '%s' "${response}" | jq -r ".data.${field} // empty" 2>/dev/null || true
+}
+
+READY_FILE=/run/grimmory/db-ready
+NEEDS_DB_RESTART_FILE=/run/grimmory/needs-db-restart
+DB_RESTART_TRIGGERED_FILE=/run/grimmory/db-restart-triggered
+
+restart_grimmory_service() {
+    if command -v s6-svc >/dev/null 2>&1 && [ -d /run/service/grimmory ]; then
+        s6-svc -r /run/service/grimmory
+        return 0
+    fi
+
+    if pkill -f ' -jar /app/app.jar' >/dev/null 2>&1; then
+        return 0
+    fi
+
+    return 1
+}
+
+mkdir -p /run/grimmory
+
+while true; do
+    MYSQL_HOST=$(get_mysql_service_value host)
+    MYSQL_PORT=$(get_mysql_service_value port)
+    MYSQL_USER=$(get_mysql_service_value username)
+    MYSQL_PASSWORD=$(get_mysql_service_value password)
+
+    if [ -z "${MYSQL_HOST}" ] || [ -z "${MYSQL_PORT}" ] || [ -z "${MYSQL_USER}" ] || [ -z "${MYSQL_PASSWORD}" ]; then
+        if [ -f "${READY_FILE}" ]; then
+            bashio::log.warning "MariaDB service metadata is unavailable"
+            rm -f "${READY_FILE}"
+        fi
+
+        sleep 10
+        continue
+    fi
+
+    if MYSQL_PWD="${MYSQL_PASSWORD}" mysqladmin \
+        --host="${MYSQL_HOST}" \
+        --port="${MYSQL_PORT}" \
+        --user="${MYSQL_USER}" \
+        ping --silent >/dev/null 2>&1; then
+        if [ ! -f "${READY_FILE}" ]; then
+            bashio::log.info "MariaDB is ready"
+            touch "${READY_FILE}"
+        fi
+
+        if [ -f "${NEEDS_DB_RESTART_FILE}" ] && [ ! -f "${DB_RESTART_TRIGGERED_FILE}" ]; then
+            bashio::log.info "MariaDB is ready after a DB-less startup; restarting Grimmory to apply database settings"
+            touch "${DB_RESTART_TRIGGERED_FILE}"
+
+            if ! restart_grimmory_service; then
+                bashio::log.warning "Unable to restart Grimmory automatically after MariaDB recovery"
+                rm -f "${DB_RESTART_TRIGGERED_FILE}"
+            fi
+        fi
+    else
+        if [ -f "${READY_FILE}" ]; then
+            bashio::log.warning "MariaDB became unavailable"
+            rm -f "${READY_FILE}"
+        fi
+    fi
+
+    sleep 10
+done

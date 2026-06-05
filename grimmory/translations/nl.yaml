@@ -1,0 +1,16 @@
+configuration:
+  bookdrop_folder:
+    name: Bookdrop-map
+    description: Relatief pad onder /media dat Grimmory gebruikt voor automatische import.
+  books_folder:
+    name: Boekenmap
+    description: Relatief pad onder /share dat Grimmory gebruikt als hoofdmap voor de bibliotheek.
+  timezone:
+    name: Tijdzone
+    description: Tijdzone die aan Grimmory wordt doorgegeven, bijvoorbeeld Etc/UTC of Europe/Amsterdam.
+  disk_type:
+    name: Schijftype
+    description: LOCAL voor normale bestandssystemen, NETWORK voor netwerkgedeelde opslag waarbij directe bestandsacties beperkt moeten worden.
+  api_docs_enabled:
+    name: API-documentatie ingeschakeld
+    description: Maak Grimmory API-documentatie en OpenAPI JSON-eindpunten beschikbaar.

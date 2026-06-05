@@ -1,0 +1,16 @@
+configuration:
+  bookdrop_folder:
+    name: Bookdrop folder
+    description: Relative path under /media that Grimmory uses for automatic imports.
+  books_folder:
+    name: Books folder
+    description: Relative path under /share that Grimmory uses as its library storage root.
+  timezone:
+    name: Timezone
+    description: Timezone passed to Grimmory, for example Etc/UTC or Europe/Amsterdam.
+  disk_type:
+    name: Disk type
+    description: LOCAL for normal filesystems, NETWORK for network-mounted storage where direct file operations should be disabled.
+  api_docs_enabled:
+    name: API docs enabled
+    description: Expose Grimmory API documentation and OpenAPI JSON endpoints.
