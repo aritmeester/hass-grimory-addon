@@ -34,6 +34,10 @@ mkdir -p /data /app /run/grimmory
 mkdir -p "/media/$BOOKDROP_FOLDER"
 mkdir -p "/share/$BOOKS_FOLDER"
 
+# Ensure Grimmory's default app data path is writable by redirecting it to /data.
+rm -rf /app/data
+ln -s /data /app/data
+
 rm -rf /bookdrop /books
 ln -s "/media/$BOOKDROP_FOLDER" /bookdrop
 ln -s "/share/$BOOKS_FOLDER" /books

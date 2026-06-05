@@ -1,5 +1,5 @@
 name: Grimmory
-version: "0.1.1"
+version: "0.1.2"
 slug: grimmory
 description: Host Grimmory with a /media bookdrop and MariaDB backend.
 url: https://github.com/aritmeester/hass-grimory-addon

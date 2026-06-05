@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Fixed startup permissions by mapping `/app/data` to the writable Home Assistant data volume (`/data`).
+
 ## 0.1.1
 
 - Fixed the upstream Grimmory container source tag in the add-on Docker build.
